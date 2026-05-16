@@ -359,38 +359,206 @@
             text-decoration: underline;
         }
 
+        /* Expandable Map Styles */
+        .map-toggle-btn {
+            background: var(--accent);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 10px 16px;
+            transition: background 0.2s;
+            width: 100%;
+        }
+
+        .map-toggle-btn:hover {
+            background: #2563c0;
+        }
+
+        .map-toggle-btn:active {
+            transform: scale(0.98);
+        }
+
+        .map-content {
+            display: none;
+            margin-top: 12px;
+        }
+
+        .map-content.expanded {
+            display: block;
+        }
+
+        /* Mobile & Accessibility Improvements */
         @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
             .road-container::after,
             .road-container::before {
-                left: 20px;
+                display: none;
             }
 
             .stop-card {
                 left: 0 !important;
-                padding-left: 50px;
-                padding-right: 0;
+                padding: 0 !important;
                 text-align: left !important;
                 width: 100%;
+                margin-bottom: 20px;
             }
 
             .stop-card::after {
-                left: 5px !important;
+                display: none;
+            }
+
+            .stop-card.left,
+            .stop-card.right {
+                left: 0 !important;
+                text-align: left !important;
             }
 
             .stop-card.left .footer-tools {
                 flex-direction: row;
             }
 
+            .card-content {
+                border-radius: 12px;
+                padding: 20px;
+            }
+
+            .card-image {
+                height: 140px;
+                margin: -20px -20px 15px -20px;
+                border-radius: 12px 12px 0 0;
+            }
+
             .legend {
-                gap: 10px;
+                gap: 8px;
+                padding: 15px;
+            }
+
+            .legend-item {
+                font-size: 0.85rem;
+            }
+
+            .title {
+                font-size: 1.2rem;
+            }
+
+            .desc {
+                font-size: 0.95rem;
+            }
+
+            .local-guide {
+                font-size: 0.8rem;
+                padding: 8px 10px;
+            }
+
+            .maps-link,
+            .map-toggle-btn {
+                font-size: 0.95rem;
+            }
+
+            .cost-badge,
+            .btn-link {
+                font-size: 0.9rem;
+                padding: 8px 12px;
+            }
+
+            .footer-tools {
+                gap: 8px;
+            }
+
+            .map-embed {
+                height: 280px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 60px 15px;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+                letter-spacing: 1px;
+            }
+
+            header p {
+                font-size: 0.95rem;
+            }
+
+            .road-container {
+                padding: 0 15px;
+            }
+
+            .card-content {
+                padding: 18px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
             }
 
             .card-image {
                 height: 120px;
+                margin: -18px -18px 12px -18px;
             }
 
-            .map-embed {
-                height: 250px;
+            .legend {
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .legend-item {
+                justify-content: flex-start;
+                font-size: 0.8rem;
+            }
+
+            .title {
+                font-size: 1.1rem;
+                margin-bottom: 6px;
+            }
+
+            .desc {
+                font-size: 0.9rem;
+                margin-bottom: 12px;
+            }
+
+            .date {
+                font-size: 0.8rem;
+            }
+
+            .category {
+                font-size: 0.7rem;
+                padding: 2px 6px;
+            }
+
+            .local-guide {
+                font-size: 0.75rem;
+                padding: 8px;
+                margin-top: 8px;
+            }
+
+            .route-info {
+                font-size: 0.8rem;
+            }
+
+            .map-toggle-btn {
+                padding: 12px 14px;
+                font-size: 0.9rem;
+            }
+
+            .cost-badge {
+                font-size: 0.8rem;
+                padding: 6px 10px;
+            }
+
+            .btn-link {
+                font-size: 0.85rem;
             }
         }
     </style>
@@ -436,7 +604,7 @@
 
         <div class="stop-card left">
             <div class="card-content">
-                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=800&q=80')"></div>
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1605559424843-9e4c3feb3a81?auto=format&fit=crop&w=800&q=80')"></div>
                 <div class="date">Friday, June 19</div>
                 <div class="category drive-leg">🛣️ Drive Leg</div>
                 <h3 class="title">San Diego Departure</h3>
@@ -444,8 +612,14 @@
                 <div class="local-guide">💡 Start by 6–7 AM to avoid LA traffic. Pack sunscreen and snacks; next major stop is 3+ hours away.</div>
                 <span class="route-info">🛣️ I-8 E to I-10 E</span>
                 <div class="maps-section">
-                    <div class="maps-link">
-                        <a href="https://www.google.com/maps/search/32.7157,-117.1611" target="_blank" rel="noreferrer">📍 View on Google Maps →</a>
+                    <button class="map-toggle-btn" onclick="toggleMap(this)">📍 View on Map</button>
+                    <div class="map-content">
+                        <div class="map-embed">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d335452.8!2d-117.5!3d32.7157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80d9530fad921e4b%3A0xeba6a6b6b5b0b0b0!2sSan%20Diego%2C%20CA!5e0!3m2!1sen!2sus!4v1234567890123" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                        <div class="maps-link" style="margin-top: 8px;">
+                            <a href="https://www.google.com/maps/search/32.7157,-117.1611" target="_blank" rel="noreferrer">Full Map →</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -453,7 +627,7 @@
 
         <div class="stop-card right">
             <div class="card-content">
-                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=800&q=80')"></div>
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1469022563149-aa64dbd37aae?auto=format&fit=crop&w=800&q=80')"></div>
                 <div class="date">Friday, June 19</div>
                 <div class="category pit-stop">⛽ Pit Stop</div>
                 <h3 class="title">Dateland, AZ</h3>
@@ -464,8 +638,11 @@
                     <a href="https://www.dateland.com/" target="_blank" rel="noreferrer" class="btn-link">Visit Website →</a>
                 </div>
                 <div class="maps-section">
-                    <div class="maps-link">
-                        <a href="https://www.google.com/maps/search/32.7330,-114.3667" target="_blank" rel="noreferrer">📍 View on Google Maps →</a>
+                    <button class="map-toggle-btn" onclick="toggleMap(this)">📍 View on Map</button>
+                    <div class="map-content">
+                        <div class="maps-link">
+                            <a href="https://www.google.com/maps/search/32.7330,-114.3667" target="_blank" rel="noreferrer">Full Map →</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -473,7 +650,7 @@
 
         <div class="stop-card left">
             <div class="card-content">
-                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80')"></div>
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1531519227848-9f66a5c2f4d5?auto=format&fit=crop&w=800&q=80')"></div>
                 <div class="date">Friday, June 19</div>
                 <div class="category activity">🎯 Activity</div>
                 <h3 class="title">Pima Air &amp; Space Museum</h3>
@@ -484,8 +661,11 @@
                     <a href="https://pimaair.org/" target="_blank" rel="noreferrer" class="btn-link">Visit Museum →</a>
                 </div>
                 <div class="maps-section">
-                    <div class="maps-link">
-                        <a href="https://www.google.com/maps/search/32.1155,-110.8837" target="_blank" rel="noreferrer">📍 View on Google Maps →</a>
+                    <button class="map-toggle-btn" onclick="toggleMap(this)">📍 View on Map</button>
+                    <div class="map-content">
+                        <div class="maps-link">
+                            <a href="https://www.google.com/maps/search/32.1155,-110.8837" target="_blank" rel="noreferrer">Full Map →</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -493,7 +673,7 @@
 
         <div class="stop-card right">
             <div class="card-content">
-                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1489234633099-85d4a0a2b88d?auto=format&fit=crop&w=800&q=80')"></div>
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80')"></div>
                 <div class="date">Friday, June 19</div>
                 <div class="category overnight">🛏️ Overnight Stay</div>
                 <h3 class="title">Las Cruces, NM</h3>
@@ -504,11 +684,14 @@
                     <a href="https://www.hilton.com/en/hotels/lruntht-home2-suites-las-cruces/" target="_blank" rel="noreferrer" class="btn-link">Book Hotel →</a>
                 </div>
                 <div class="maps-section">
-                    <div class="map-embed">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3334.5234567890!2d-106.6347!3d32.3195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86e752d0a1a1a1a1%3A0x1a1a1a1a1a1a1a1a!2sHome2%20Suites%20Las%20Cruces!5e0!3m2!1sen!2sus!4v1234567890123" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                    <div class="maps-link">
-                        <a href="https://www.google.com/maps/search/32.3195,-106.6347" target="_blank" rel="noreferrer">📍 View on Google Maps →</a>
+                    <button class="map-toggle-btn" onclick="toggleMap(this)">📍 View on Map</button>
+                    <div class="map-content">
+                        <div class="map-embed">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3334.5!2d-106.6347!3d32.3195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86e752d0a1a1a1a1%3A0x1a1a1a1a1a1a1a1a!2sHome2%20Suites%20Las%20Cruces!5e0!3m2!1sen!2sus!4v1234567890123" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                        <div class="maps-link" style="margin-top: 8px;">
+                            <a href="https://www.google.com/maps/search/32.3195,-106.6347" target="_blank" rel="noreferrer">Full Map →</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -527,8 +710,11 @@
                     <a href="https://tpwd.texas.gov/state-parks/balmorhea" target="_blank" rel="noreferrer" class="btn-link">Park Info →</a>
                 </div>
                 <div class="maps-section">
-                    <div class="maps-link">
-                        <a href="https://www.google.com/maps/search/30.7833,-103.7500" target="_blank" rel="noreferrer">📍 View on Google Maps →</a>
+                    <button class="map-toggle-btn" onclick="toggleMap(this)">📍 View on Map</button>
+                    <div class="map-content">
+                        <div class="maps-link">
+                            <a href="https://www.google.com/maps/search/30.7833,-103.7500" target="_blank" rel="noreferrer">Full Map →</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -536,7 +722,7 @@
 
         <div class="stop-card right">
             <div class="card-content">
-                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80')"></div>
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80')"></div>
                 <div class="date">Saturday, June 20</div>
                 <div class="category food-stop">🍽️ Food Stop</div>
                 <h3 class="title">Jay's BBQ Shack (Abilene)</h3>
@@ -547,8 +733,11 @@
                     <a href="https://jaysbbqshack.com/" target="_blank" rel="noreferrer" class="btn-link">Menu →</a>
                 </div>
                 <div class="maps-section">
-                    <div class="maps-link">
-                        <a href="https://www.google.com/maps/search/32.4487,-99.7331" target="_blank" rel="noreferrer">📍 View on Google Maps →</a>
+                    <button class="map-toggle-btn" onclick="toggleMap(this)">📍 View on Map</button>
+                    <div class="map-content">
+                        <div class="maps-link">
+                            <a href="https://www.google.com/maps/search/32.4487,-99.7331" target="_blank" rel="noreferrer">Full Map →</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -556,7 +745,7 @@
 
         <div class="stop-card left">
             <div class="card-content">
-                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1552820728-8ac41f1ce891?auto=format&fit=crop&w=800&q=80')"></div>
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80')"></div>
                 <div class="date">Saturday, June 20</div>
                 <div class="category overnight">🛏️ Overnight Stay</div>
                 <h3 class="title">Abilene, TX</h3>
@@ -567,11 +756,14 @@
                     <a href="https://www.hilton.com/en/hotels/abilnht-home2-suites-abilene/" target="_blank" rel="noreferrer" class="btn-link">Book Hotel →</a>
                 </div>
                 <div class="maps-section">
-                    <div class="map-embed">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3367.8912345678!2d-99.7331!3d32.4487!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8667c1a1a1a1a1a1%3A0x1a1a1a1a1a1a1a1a!2sHome2%20Suites%20Abilene!5e0!3m2!1sen!2sus!4v1234567890123" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                    <div class="maps-link">
-                        <a href="https://www.google.com/maps/search/32.4487,-99.7331" target="_blank" rel="noreferrer">📍 View on Google Maps →</a>
+                    <button class="map-toggle-btn" onclick="toggleMap(this)">📍 View on Map</button>
+                    <div class="map-content">
+                        <div class="map-embed">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3367.8!2d-99.7331!3d32.4487!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8667c1a1a1a1a1a1%3A0x1a1a1a1a1a1a1a1a!2sHome2%20Suites%20Abilene!5e0!3m2!1sen!2sus!4v1234567890123" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                        <div class="maps-link" style="margin-top: 8px;">
+                            <a href="https://www.google.com/maps/search/32.4487,-99.7331" target="_blank" rel="noreferrer">Full Map →</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -579,7 +771,7 @@
 
         <div class="stop-card right">
             <div class="card-content">
-                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1552820728-8ac41f1ce891?auto=format&fit=crop&w=800&q=80')"></div>
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1476524203715-7f66750b9d25?auto=format&fit=crop&w=800&q=80')"></div>
                 <div class="date">Sunday, June 21</div>
                 <div class="category mega-stop">🔥 Mega-Stop</div>
                 <h3 class="title">Buc-ee's (Terrell, TX)</h3>
@@ -590,8 +782,11 @@
                     <a href="https://buc-ees.com/" target="_blank" rel="noreferrer" class="btn-link">Location Info →</a>
                 </div>
                 <div class="maps-section">
-                    <div class="maps-link">
-                        <a href="https://www.google.com/maps/search/32.7436,-96.2711" target="_blank" rel="noreferrer">📍 View on Google Maps →</a>
+                    <button class="map-toggle-btn" onclick="toggleMap(this)">📍 View on Map</button>
+                    <div class="map-content">
+                        <div class="maps-link">
+                            <a href="https://www.google.com/maps/search/32.7436,-96.2711" target="_blank" rel="noreferrer">Full Map →</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -610,11 +805,14 @@
                     <a href="https://www.nps.gov/vick/index.htm" target="_blank" rel="noreferrer" class="btn-link">Park Info →</a>
                 </div>
                 <div class="maps-section">
-                    <div class="map-embed">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3423.1234567890!2d-90.8771!3d32.3792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8626b1a1a1a1a1a1%3A0x1a1a1a1a1a1a1a1a!2sVicksburg%20National%20Military%20Park!5e0!3m2!1sen!2sus!4v1234567890123" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                    <div class="maps-link">
-                        <a href="https://www.google.com/maps/search/32.3792,-90.8771" target="_blank" rel="noreferrer">📍 View on Google Maps →</a>
+                    <button class="map-toggle-btn" onclick="toggleMap(this)">📍 View on Map</button>
+                    <div class="map-content">
+                        <div class="map-embed">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3423.1!2d-90.8771!3d32.3792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8626b1a1a1a1a1a1%3A0x1a1a1a1a1a1a1a1a!2sVicksburg%20National%20Military%20Park!5e0!3m2!1sen!2sus!4v1234567890123" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                        <div class="maps-link" style="margin-top: 8px;">
+                            <a href="https://www.google.com/maps/search/32.3792,-90.8771" target="_blank" rel="noreferrer">Full Map →</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -630,11 +828,14 @@
                 <div class="local-guide">💡 Jackson has great restaurants and museums downtown. Plan arrival by early evening on June 21. Check-in and rest up for the big event Friday.</div>
                 <span class="route-info">🏁 I-20 E to I-220 N</span>
                 <div class="maps-section">
-                    <div class="map-embed">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.2345678901!2d-90.1848!3d32.2988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8626a1a1a1a1a1a1%3A0x1a1a1a1a1a1a1a1a!2sJackson%2C%20MS!5e0!3m2!1sen!2sus!4v1234567890123" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                    <div class="maps-link">
-                        <a href="https://www.google.com/maps/search/32.2988,-90.1848" target="_blank" rel="noreferrer">📍 View on Google Maps →</a>
+                    <button class="map-toggle-btn" onclick="toggleMap(this)">📍 View on Map</button>
+                    <div class="map-content">
+                        <div class="map-embed">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.2!2d-90.1848!3d32.2988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8626a1a1a1a1a1a1%3A0x1a1a1a1a1a1a1a1a!2sJackson%2C%20MS!5e0!3m2!1sen!2sus!4v1234567890123" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                        <div class="maps-link" style="margin-top: 8px;">
+                            <a href="https://www.google.com/maps/search/32.2988,-90.1848" target="_blank" rel="noreferrer">Full Map →</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -642,6 +843,14 @@
     </section>
 
     <script>
+        // Toggle map expansion
+        function toggleMap(btn) {
+            const mapContent = btn.nextElementSibling;
+            mapContent.classList.toggle('expanded');
+            btn.textContent = mapContent.classList.contains('expanded') ? '📍 Hide Map' : '📍 View on Map';
+        }
+
+        // Scroll animation for cards
         const cards = document.querySelectorAll(".stop-card");
 
         const observerOptions = {
