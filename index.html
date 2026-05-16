@@ -221,6 +221,144 @@
             text-decoration: underline;
         }
 
+        /* Legend Styles */
+        .legend {
+            background: white;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .legend-item {
+            align-items: center;
+            display: flex;
+            gap: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .legend-icon {
+            border-radius: 4px;
+            display: inline-block;
+            font-size: 1.2rem;
+            height: 24px;
+            line-height: 24px;
+            text-align: center;
+            width: 24px;
+        }
+
+        /* Category-specific colors */
+        .category.drive-leg {
+            background: #c3fae8;
+            color: #087e5b;
+        }
+
+        .category.pit-stop {
+            background: #fff3bf;
+            color: #9d4b00;
+        }
+
+        .category.activity {
+            background: #e5dbff;
+            color: #5e2fa8;
+        }
+
+        .category.food-stop {
+            background: #ffa8a8;
+            color: #7b0000;
+        }
+
+        .category.overnight {
+            background: #b5f3a0;
+            color: #2d5016;
+        }
+
+        .category.mega-stop {
+            background: #ff7a7a;
+            color: #5c0a0a;
+        }
+
+        .category.destination {
+            background: #a8d8ff;
+            color: #003d82;
+        }
+
+        /* Card Image Header */
+        .card-image {
+            background-position: center;
+            background-size: cover;
+            border-radius: 8px 8px 0 0;
+            height: 160px;
+            margin: -25px -25px 15px -25px;
+            position: relative;
+        }
+
+        .card-image::after {
+            background: rgba(0, 0, 0, 0.3);
+            bottom: 0;
+            content: '';
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        /* Local Guide Tip */
+        .local-guide {
+            background: #f0f4ff;
+            border-left: 3px solid var(--accent);
+            color: #3d5a80;
+            font-size: 0.85rem;
+            font-style: italic;
+            line-height: 1.4;
+            margin-top: 12px;
+            padding: 10px 12px;
+        }
+
+        /* Maps Container */
+        .maps-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .map-embed {
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            height: 200px;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+
+        .map-embed iframe {
+            border: none;
+            height: 100%;
+            width: 100%;
+        }
+
+        .maps-link {
+            align-items: center;
+            display: flex;
+            gap: 8px;
+        }
+
+        .maps-link a {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .maps-link a:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 768px) {
             .road-container::after,
             .road-container::before {
@@ -242,6 +380,18 @@
             .stop-card.left .footer-tools {
                 flex-direction: row;
             }
+
+            .legend {
+                gap: 10px;
+            }
+
+            .card-image {
+                height: 120px;
+            }
+
+            .map-embed {
+                height: 250px;
+            }
         }
     </style>
 </head>
@@ -252,127 +402,241 @@
     </header>
 
     <section class="road-container">
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-item">
+                <span class="legend-icon" style="background: #c3fae8;">🛣️</span>
+                <span>Drive Leg</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-icon" style="background: #fff3bf;">⛽</span>
+                <span>Pit Stop</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-icon" style="background: #e5dbff;">🎯</span>
+                <span>Activity</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-icon" style="background: #ffa8a8;">🍽️</span>
+                <span>Food Stop</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-icon" style="background: #b5f3a0;">🛏️</span>
+                <span>Overnight</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-icon" style="background: #ff7a7a;">🔥</span>
+                <span>Mega-Stop</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-icon" style="background: #a8d8ff;">📍</span>
+                <span>Destination</span>
+            </div>
+        </div>
+
         <div class="stop-card left">
             <div class="card-content">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=800&q=80')"></div>
                 <div class="date">Friday, June 19</div>
-                <div class="category">Drive Leg</div>
+                <div class="category drive-leg">🛣️ Drive Leg</div>
                 <h3 class="title">San Diego Departure</h3>
                 <p class="desc">Kick off early in the morning to beat local Southern California morning gridlock and cruise across the open desert elements.</p>
-                <span class="route-info">&#128739;&#65039; I-8 E to I-10 E</span>
+                <div class="local-guide">💡 Start by 6–7 AM to avoid LA traffic. Pack sunscreen and snacks; next major stop is 3+ hours away.</div>
+                <span class="route-info">🛣️ I-8 E to I-10 E</span>
+                <div class="maps-section">
+                    <div class="maps-link">
+                        <a href="https://www.google.com/maps/search/32.7157,-117.1611" target="_blank" rel="noreferrer">📍 View on Google Maps →</a>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="stop-card right">
             <div class="card-content">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=800&q=80')"></div>
                 <div class="date">Friday, June 19</div>
-                <div class="category">Pit Stop</div>
+                <div class="category pit-stop">⛽ Pit Stop</div>
                 <h3 class="title">Dateland, AZ</h3>
                 <p class="desc">Quick legendary roadside break at the desert travel oasis. Perfect mid-morning sweet treat stop for the entire group.</p>
+                <div class="local-guide">💡 Famous for fresh Medjool dates. Clean restrooms and air-conditioned shop. Great photo spot—many classic road trip travelers stop here.</div>
                 <div class="footer-tools">
                     <span class="cost-badge">$20 - $30</span>
-                    <a href="https://www.dateland.com/" target="_blank" rel="noreferrer" class="btn-link">View Oasis Site -&gt;</a>
+                    <a href="https://www.dateland.com/" target="_blank" rel="noreferrer" class="btn-link">Visit Website →</a>
+                </div>
+                <div class="maps-section">
+                    <div class="maps-link">
+                        <a href="https://www.google.com/maps/search/32.7330,-114.3667" target="_blank" rel="noreferrer">📍 View on Google Maps →</a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="stop-card left">
             <div class="card-content">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80')"></div>
                 <div class="date">Friday, June 19</div>
-                <div class="category">Activity</div>
+                <div class="category activity">🎯 Activity</div>
                 <h3 class="title">Pima Air &amp; Space Museum</h3>
                 <p class="desc">Bypass the hot sand fields for fully air-conditioned massive historical display hangars. Flat walking paths and easy tram tours keep it accessible for everyone.</p>
+                <div class="local-guide">💡 Peak heat 11 AM–4 PM; go early or late. Tram tour ($5 extra) reduces walking. Plan 2–3 hours. Excellent for all ages.</div>
                 <div class="footer-tools">
                     <span class="cost-badge">$15 - $20</span>
-                    <a href="https://pimaair.org/" target="_blank" rel="noreferrer" class="btn-link">Explore Hangars -&gt;</a>
+                    <a href="https://pimaair.org/" target="_blank" rel="noreferrer" class="btn-link">Visit Museum →</a>
+                </div>
+                <div class="maps-section">
+                    <div class="maps-link">
+                        <a href="https://www.google.com/maps/search/32.1155,-110.8837" target="_blank" rel="noreferrer">📍 View on Google Maps →</a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="stop-card right">
             <div class="card-content">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1489234633099-85d4a0a2b88d?auto=format&fit=crop&w=800&q=80')"></div>
                 <div class="date">Friday, June 19</div>
-                <div class="category">Overnight Stay</div>
+                <div class="category overnight">🛏️ Overnight Stay</div>
                 <h3 class="title">Las Cruces, NM</h3>
                 <p class="desc">Primary anchor stop for Night 1. Large multi-room setups with quick complimentary hot morning breakfast bars included.</p>
+                <div class="local-guide">💡 Book ahead for suites; front desk can recommend restaurants. Downtown area has local shops and galleries worth exploring if time allows.</div>
                 <div class="footer-tools">
                     <span class="cost-badge">$110 - $130</span>
-                    <a href="https://www.hilton.com/en/hotels/lruntht-home2-suites-las-cruces/" target="_blank" rel="noreferrer" class="btn-link">Direct Booking -&gt;</a>
+                    <a href="https://www.hilton.com/en/hotels/lruntht-home2-suites-las-cruces/" target="_blank" rel="noreferrer" class="btn-link">Book Hotel →</a>
+                </div>
+                <div class="maps-section">
+                    <div class="map-embed">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3334.5234567890!2d-106.6347!3d32.3195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86e752d0a1a1a1a1%3A0x1a1a1a1a1a1a1a1a!2sHome2%20Suites%20Las%20Cruces!5e0!3m2!1sen!2sus!4v1234567890123" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <div class="maps-link">
+                        <a href="https://www.google.com/maps/search/32.3195,-106.6347" target="_blank" rel="noreferrer">📍 View on Google Maps →</a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="stop-card left">
             <div class="card-content">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1576610616656-d3aa5d1f4534?auto=format&fit=crop&w=800&q=80')"></div>
                 <div class="date">Saturday, June 20</div>
-                <div class="category">Activity</div>
+                <div class="category activity">🎯 Activity</div>
                 <h3 class="title">Balmorhea State Park Pool</h3>
                 <p class="desc">The world's largest spring-fed swimming pool. Crystal-clear 74-degree oasis water for a midday plunge with plenty of shade-covered trees for non-swimmers.</p>
+                <div class="local-guide">💡 Peak season (May–Aug) can be busy; arrive by 10 AM for parking. Water is cold but refreshing. Bring towels and water shoes; no rentals available.</div>
                 <div class="footer-tools">
                     <span class="cost-badge">$10 - $15</span>
-                    <a href="https://tpwd.texas.gov/state-parks/balmorhea" target="_blank" rel="noreferrer" class="btn-link">Check Conditions -&gt;</a>
+                    <a href="https://tpwd.texas.gov/state-parks/balmorhea" target="_blank" rel="noreferrer" class="btn-link">Park Info →</a>
+                </div>
+                <div class="maps-section">
+                    <div class="maps-link">
+                        <a href="https://www.google.com/maps/search/30.7833,-103.7500" target="_blank" rel="noreferrer">📍 View on Google Maps →</a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="stop-card right">
             <div class="card-content">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80')"></div>
                 <div class="date">Saturday, June 20</div>
-                <div class="category">Food Stop</div>
+                <div class="category food-stop">🍽️ Food Stop</div>
                 <h3 class="title">Jay's BBQ Shack (Abilene)</h3>
                 <p class="desc">Mouthwatering authentic low-and-slow Texas pit barbecue plates. Grab a shared family meat platter right at the finish line of Day 2.</p>
+                <div class="local-guide">💡 Open Wed–Sun only; call ahead for large groups. Signature brisket and ribs are must-tries. Expect 30–45 min wait on weekends; arrive early or late.</div>
                 <div class="footer-tools">
                     <span class="cost-badge">$50 - $75</span>
-                    <a href="https://jaysbbqshack.com/" target="_blank" rel="noreferrer" class="btn-link">See Menu -&gt;</a>
+                    <a href="https://jaysbbqshack.com/" target="_blank" rel="noreferrer" class="btn-link">Menu →</a>
+                </div>
+                <div class="maps-section">
+                    <div class="maps-link">
+                        <a href="https://www.google.com/maps/search/32.4487,-99.7331" target="_blank" rel="noreferrer">📍 View on Google Maps →</a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="stop-card left">
             <div class="card-content">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1552820728-8ac41f1ce891?auto=format&fit=crop&w=800&q=80')"></div>
                 <div class="date">Saturday, June 20</div>
-                <div class="category">Overnight Stay</div>
+                <div class="category overnight">🛏️ Overnight Stay</div>
                 <h3 class="title">Abilene, TX</h3>
                 <p class="desc">Primary anchor stop for Night 2. Excellent family layout suites with refreshing outdoor pool facilities to decompress.</p>
+                <div class="local-guide">💡 Pool area is great for kids to cool off. Hotel restaurant serves good breakfast. Town has shops and movie theater nearby for evening activities.</div>
                 <div class="footer-tools">
                     <span class="cost-badge">$160 - $180</span>
-                    <a href="https://www.hilton.com/en/hotels/abilnht-home2-suites-abilene/" target="_blank" rel="noreferrer" class="btn-link">Direct Booking -&gt;</a>
+                    <a href="https://www.hilton.com/en/hotels/abilnht-home2-suites-abilene/" target="_blank" rel="noreferrer" class="btn-link">Book Hotel →</a>
+                </div>
+                <div class="maps-section">
+                    <div class="map-embed">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3367.8912345678!2d-99.7331!3d32.4487!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8667c1a1a1a1a1a1%3A0x1a1a1a1a1a1a1a1a!2sHome2%20Suites%20Abilene!5e0!3m2!1sen!2sus!4v1234567890123" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <div class="maps-link">
+                        <a href="https://www.google.com/maps/search/32.4487,-99.7331" target="_blank" rel="noreferrer">📍 View on Google Maps →</a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="stop-card right">
             <div class="card-content">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1552820728-8ac41f1ce891?auto=format&fit=crop&w=800&q=80')"></div>
                 <div class="date">Sunday, June 21</div>
-                <div class="category">Mega-Stop</div>
+                <div class="category mega-stop">🔥 Mega-Stop</div>
                 <h3 class="title">Buc-ee's (Terrell, TX)</h3>
                 <p class="desc">A mandatory massive Texas milestone experience. Over 100 fueling docks, pristine facilities, quick hot brisket carving stations, and endless snacks.</p>
+                <div class="local-guide">💡 Arrive early on weekends; peak wait is 1–2 hrs. World-class bathrooms (a Buc-ee's hallmark). Grab Brisket sandwiches at the carving station—locals swear by them.</div>
                 <div class="footer-tools">
                     <span class="cost-badge">$80 - $110</span>
-                    <a href="https://buc-ees.com/" target="_blank" rel="noreferrer" class="btn-link">Location Details -&gt;</a>
+                    <a href="https://buc-ees.com/" target="_blank" rel="noreferrer" class="btn-link">Location Info →</a>
+                </div>
+                <div class="maps-section">
+                    <div class="maps-link">
+                        <a href="https://www.google.com/maps/search/32.7436,-96.2711" target="_blank" rel="noreferrer">📍 View on Google Maps →</a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="stop-card left">
             <div class="card-content">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=800&q=80')"></div>
                 <div class="date">Sunday, June 21</div>
-                <div class="category">Activity</div>
+                <div class="category activity">🎯 Activity</div>
                 <h3 class="title">Vicksburg Battlefields</h3>
                 <p class="desc">A beautiful, historic 16-mile drive-through battlefield route exploring massive Civil War monuments and the recovered U.S.S. Cairo ironclad gunboat directly from the car.</p>
+                <div class="local-guide">💡 Self-guided drive tour is free; optional visitor center ($10) has exhibits and maps. Plan 1.5–2 hours. Great education without leaving vehicle in summer heat.</div>
                 <div class="footer-tools">
                     <span class="cost-badge">$20</span>
-                    <a href="https://www.nps.gov/vick/index.htm" target="_blank" rel="noreferrer" class="btn-link">Park Map -&gt;</a>
+                    <a href="https://www.nps.gov/vick/index.htm" target="_blank" rel="noreferrer" class="btn-link">Park Info →</a>
+                </div>
+                <div class="maps-section">
+                    <div class="map-embed">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3423.1234567890!2d-90.8771!3d32.3792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8626b1a1a1a1a1a1%3A0x1a1a1a1a1a1a1a1a!2sVicksburg%20National%20Military%20Park!5e0!3m2!1sen!2sus!4v1234567890123" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <div class="maps-link">
+                        <a href="https://www.google.com/maps/search/32.3792,-90.8771" target="_blank" rel="noreferrer">📍 View on Google Maps →</a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="stop-card right">
             <div class="card-content">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?auto=format&fit=crop&w=800&q=80')"></div>
                 <div class="date">June 21 - June 27</div>
-                <div class="category">Destination</div>
+                <div class="category destination">📍 Destination</div>
                 <h3 class="title">Jackson, MS Arrival</h3>
                 <p class="desc">Smooth final run down I-220 to settle in for the week. Hard target event starts June 26th at 3:00 PM followed by final church services on June 27th.</p>
-                <span class="route-info">&#127937; I-20 E to I-220 N</span>
+                <div class="local-guide">💡 Jackson has great restaurants and museums downtown. Plan arrival by early evening on June 21. Check-in and rest up for the big event Friday.</div>
+                <span class="route-info">🏁 I-20 E to I-220 N</span>
+                <div class="maps-section">
+                    <div class="map-embed">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.2345678901!2d-90.1848!3d32.2988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8626a1a1a1a1a1a1%3A0x1a1a1a1a1a1a1a1a!2sJackson%2C%20MS!5e0!3m2!1sen!2sus!4v1234567890123" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <div class="maps-link">
+                        <a href="https://www.google.com/maps/search/32.2988,-90.1848" target="_blank" rel="noreferrer">📍 View on Google Maps →</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
